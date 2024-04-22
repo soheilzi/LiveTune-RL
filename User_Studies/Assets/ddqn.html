@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LiveTune</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!--Background-->
+  <div class="background">
+  <!--Background Adjustment Layer-->
+  <!-- -----------Reward Section----------
+Reward Hungry and Thirsty
+Reward not Hungry and Thirsty
+Reward Hungry and not Thirsty
+Reward not Hungry and not Thirsty
+(all must be values between -1 and 1)
+make them as sliders
+Reward scaling factor (options: 1, 5, 10, 50, 100) -->
+  <div class="background-overlay">
+
+    <div class="box-container">
+      <div id="box-background">
+        <!-- Body -->
+        <div style="margin: 0; padding: 0">
+          <h3>LiveTune</h3>
+          <form action="/" method="post">
+            <div class="form-group
+            ">
+              <label for="reward-hungry-thirsty">Reward Hungry and Thirsty</label>
+              <input type="range" id="reward-hungry-thirsty" name="reward-hungry-thirsty" min="-1" max="1" step="0.01" value="0">
+              <output for="reward-hungry-thirsty">0</output>
+            </div>
+            <div class="form-group">
+              <label for="reward-not-hungry-thirsty">Reward not Hungry and Thirsty</label>
+              <input type="range" id="reward-not-hungry-thirsty" name="reward-not-hungry-thirsty" min="-1" max="1" step="0.01" value="0">
+              <output for="reward-not-hungry-thirsty">0</output>
+            </div>
+            <div class="form-group">
+              <label for="reward-hungry-not-thirsty">Reward Hungry and not Thirsty</label>
+              <input type="range" id="reward-hungry-not-thirsty" name="reward-hungry-not-thirsty" min="-1" max="1" step="0.01" value="0">
+              <output for="reward-hungry-not-thirsty">0</output>
+            </div>
+            <div class="form-group">
+              <label for="reward-not-hungry-not-thirsty">Reward not Hungry and not Thirsty</label>
+              <input type="range" id="reward-not-hungry-not-thirsty" name="reward-not-hungry-not-thirsty" min="-1" max="1" step="0.01" value="0">
+              <output for="reward-not-hungry-not-thirsty">0</output>
+            </div>
+            <div class="form-group">
+              <label for="reward-scaling-factor">Reward scaling factor</label>
+              <select id="reward-scaling-factor" name="reward-scaling-factor">
+                <option value="1">1</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+            </div>
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+</body>
+</html>
+
+

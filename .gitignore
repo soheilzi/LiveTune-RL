@@ -3,3 +3,6 @@
 
 # ignore __pycache__ directories
 __pycache__/
+
+# ignore egg-info directories
+*.egg-info/

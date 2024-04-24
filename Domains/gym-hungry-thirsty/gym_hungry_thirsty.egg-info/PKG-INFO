@@ -1,4 +1,4 @@
 Metadata-Version: 2.1
-Name: gym-hungry-thirsty
+Name: gym_hungry_thirsty
 Version: 0.0.1
 Requires-Dist: gym

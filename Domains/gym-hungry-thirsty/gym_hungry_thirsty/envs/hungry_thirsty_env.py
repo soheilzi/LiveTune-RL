@@ -226,13 +226,13 @@ class HungryThirstyEnv(gym.Env):
         self.CELL_HEIGHT = (self.CANVAS_HEIGHT - 2 * self.OFFSET) / self.GRID_HEIGHT
 
         home_dir = os.path.expanduser('~')
-        self.FOOD_IMG_IPY = ipywidgets.Image.from_file(home_dir + "/Documents/reward-design-perils/VisualAssets/PNG/soup_small.png")
-        self.WATER_IMG_IPY = ipywidgets.Image.from_file(home_dir + "/Documents/reward-design-perils/VisualAssets/PNG/water_small.png")
-        self.AGENT_IMG_IPY = ipywidgets.Image.from_file(home_dir + "/Documents/reward-design-perils/VisualAssets/PNG/cute_small.png")
+        self.FOOD_IMG_IPY = ipywidgets.Image.from_file("../../VisualAssets/PNG/soup_small.png")
+        self.WATER_IMG_IPY = ipywidgets.Image.from_file("../../VisualAssets/PNG/water_small.png")
+        self.AGENT_IMG_IPY = ipywidgets.Image.from_file("../../VisualAssets/PNG/cute_small.png")
 
-        self.FOOD_IMG = Image.open(home_dir + "/Documents/reward-design-perils/VisualAssets/PNG/soup_small.png")
-        self.WATER_IMG = Image.open(home_dir + "/Documents/reward-design-perils/VisualAssets/PNG/water_small.png")
-        self.AGENT_IMG = Image.open(home_dir + "/Documents/reward-design-perils/VisualAssets/PNG/cute_small.png")
+        self.FOOD_IMG = Image.open("../../VisualAssets/PNG/soup_small.png")
+        self.WATER_IMG = Image.open("../../VisualAssets/PNG/water_small.png")
+        self.AGENT_IMG = Image.open("../../VisualAssets/PNG/cute_small.png")
 
         # self.FOOD_IMG = self.FOOD_IMG.resize((self.ICON_WIDTH, self.ICON_HEIGHT), Image.ANTIALIAS)
         # self.WATER_IMG = self.WATER_IMG.resize((self.ICON_WIDTH, self.ICON_HEIGHT), Image.ANTIALIAS)

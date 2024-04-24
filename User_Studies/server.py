@@ -52,8 +52,11 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         post_data = self.rfile.read(content_length)
         # Parse the data
         fields = urllib.parse.parse_qs(post_data.decode())
-        print(f"Received port: {target_port}, tag: {fields.get('tag', [''])[0]}, value: {fields.get('value', [''])[0]}")
-        os.system(f"tune -p {target_port} -t {fields.get('tag', [''])[0]} -v {fields.get('value', [''])[0]}")
+        id_of_field = fields
+        print(f"Received id: {id_of_field}")
+        for key, value in fields.items():
+            print(f"{key}={value}")
+            os.system(f"tune -p {target_port} -t {key} -v {value[0]}")
         # Redirect back to form
         self.send_response(302)
         self.send_header('Location', '/')

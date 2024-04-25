@@ -9,11 +9,11 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         # Default file if request is root
-        if self.path == '/' and self.algorithm == 'ddqn':
+        if self.path == '/' and self.algorithm == 'DDQN':
             self.path = '/Assets/ddqn.html'
-        elif self.path == '/' and self.algorithm == 'ppo':
+        elif self.path == '/' and self.algorithm == 'PPO':
             self.path = '/Assets/ppo.html'
-        elif self.path == '/' and self.algorithm == 'a2c':
+        elif self.path == '/' and self.algorithm == 'A2C':
             self.path = '/Assets/a2c.html'
         if self.path == '/style.css':
             self.path = '/Assets/style.css'

@@ -127,6 +127,38 @@ def run_episode(env,
     return ep_reward, ep_fitness
 
 
+def test_performance(env, agent, epsilon, num_tests=5):
+    """
+
+    :param env:
+    :param agent:
+    :param num_tests:
+    :param metric: string, either 'reward' or 'fitness' TODO add return
+    :param reward_fn: optional, the user defined reward function
+    :return:
+    """
+    fitnesses = []
+
+    for _ in tqdm(range(num_tests)):
+        obs = env.reset()
+        done = False
+        episode_reward = 0
+        episode_fitness = 0
+        while not done:
+            state_as_arr = env.get_state_as_np_array() if "hungry-thirsty-v0" in env.spec.id else obs
+            A = agent.get_action(torch.FloatTensor(state_as_arr))[0]
+            obs_next, reward, done, _ = env.step(A.item())
+
+            if not obs["hungry"]:
+                episode_fitness += 1
+
+            obs = obs_next
+
+            if done:
+                fitnesses.append(episode_fitness)
+
+    return  np.mean(fitnesses)
+
 def create_a2c_agent(env,
                      hyper_params,
                      user_reward_params=None,

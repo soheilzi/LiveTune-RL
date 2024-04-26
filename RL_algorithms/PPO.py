@@ -13,6 +13,7 @@ from gym_hungry_thirsty.envs.hungry_thirsty_reward_fns import *
 import datetime as dt
 from default_parameters import *
 import gym_hungry_thirsty
+import numpy as np
 
 
 import LiveTune as lt
@@ -62,6 +63,7 @@ class PPO:
         self.gamma = gamma
         self.eps_clip = eps_clip
         self.k_epochs = k_epochs
+        self.best_mean_performance = None
 
         self.rollout_buffer = RolloutBuffer()
 
@@ -148,6 +150,41 @@ class PPO:
         self.target_actor_critic.copy_state_dict(other_actor_critic_network=self.actor_critic)
         self.rollout_buffer.clear()
 
+    def test_performance(self, env, agent, epsilon, num_tests=5):
+        """
+
+        :param env:
+        :param agent:
+        :param num_tests:
+        :param metric: string, either 'reward' or 'fitness' TODO add return
+        :param reward_fn: optional, the user defined reward function
+        :return:
+        """
+        fitnesses = []
+
+        for _ in tqdm(range(num_tests)):
+            obs = env.reset()
+            done = False
+            episode_reward = 0
+            episode_fitness = 0
+            while not done:
+                state_as_arr = env.get_state_as_np_array() if "hungry-thirsty-v0" in env.spec.id else obs
+                A = agent.select_action(state=state_as_arr)[0]
+                obs_next, reward, done, _ = env.step(A.item())
+
+                if not obs["hungry"]:
+                    episode_fitness += 1
+
+                obs = obs_next
+
+                if done:
+                    fitnesses.append(episode_fitness)
+
+        if self.best_mean_performance is None or np.mean(fitnesses) > self.best_mean_performance:
+            self.best_mean_performance = np.mean(fitnesses)
+            # self.save_trained_model(model_path='models/ddqn-best-{}.pth'.format(env.spec.id))
+
+        return self.best_mean_performance
 
 def train_ppo_agent(env,
                     hyper_params,

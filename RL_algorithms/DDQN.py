@@ -162,7 +162,7 @@ class DDQN_Agent:
         self.optimizer.step()
         return loss.item()
 
-    def test_performance(self, env, agent, epsilon, num_tests=5, metric='reward', reward_fn=None):
+    def test_performance(self, env, agent, epsilon, num_tests=5):
         """
 
         :param env:
@@ -172,10 +172,9 @@ class DDQN_Agent:
         :param reward_fn: optional, the user defined reward function
         :return:
         """
-        performances = []
         fitnesses = []
 
-        for _ in range(num_tests):
+        for _ in tqdm(range(num_tests)):
             obs = env.reset()
             done = False
             episode_reward = 0
@@ -185,28 +184,19 @@ class DDQN_Agent:
                 A = agent.get_action(state=state_as_arr, epsilon=epsilon)
                 obs_next, reward, done, _ = env.step(A.item())
 
-                if reward_fn is not None:
-                    reward = reward_fn(state=obs, action=A.item(), new_state=obs_next)
-                    if not obs["hungry"]:
-                        episode_fitness += 1
+                if not obs["hungry"]:
+                    episode_fitness += 1
 
-                episode_reward += reward
                 obs = obs_next
 
                 if done:
-                    performances.append(episode_reward)
                     fitnesses.append(episode_fitness)
 
-        if metric == 'reward':
-            if self.best_mean_performance is None or np.mean(performances) > self.best_mean_performance:
-                self.best_mean_performance = np.mean(performances)
-                self.save_trained_model(model_path='models/ddqn-best-{}.pth'.format(env.spec.id))
-        elif metric == 'fitness':
-            if self.best_mean_performance is None or np.mean(fitnesses) > self.best_mean_performance:
-                self.best_mean_performance = np.mean(fitnesses)
-                self.save_trained_model(model_path='models/ddqn-best-{}.pth'.format(env.spec.id))
+        if self.best_mean_performance is None or np.mean(fitnesses) > self.best_mean_performance:
+            self.best_mean_performance = np.mean(fitnesses)
+            # self.save_trained_model(model_path='models/ddqn-best-{}.pth'.format(env.spec.id))
 
-        return performances, fitnesses
+        return self.best_mean_performance
 
 
 def create_ddqn_agent(env,
